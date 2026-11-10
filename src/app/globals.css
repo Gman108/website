@@ -1,0 +1,505 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.375rem;
+  /* Warm retro CRT palette — amber / cream / magenta on dark warm brown */
+  --background: #160b06;
+  --foreground: #f2e3c6;
+  --card: #241308;
+  --card-foreground: #f2e3c6;
+  --popover: #2b180c;
+  --popover-foreground: #f2e3c6;
+  --primary: #ffb347;
+  --primary-foreground: #241308;
+  --secondary: #3a2110;
+  --secondary-foreground: #ffd98a;
+  --muted: #2b180c;
+  --muted-foreground: #b89a6a;
+  --accent: #ff6ec7;
+  --accent-foreground: #241308;
+  --destructive: #ff5252;
+  --border: #4a2c16;
+  --input: #4a2c16;
+  --ring: #ffb347;
+  --chart-1: #ffb347;
+  --chart-2: #ff6ec7;
+  --chart-3: #7ce38b;
+  --chart-4: #ffd98a;
+  --chart-5: #e8a04c;
+  --sidebar: #241308;
+  --sidebar-foreground: #f2e3c6;
+  --sidebar-primary: #ffb347;
+  --sidebar-primary-foreground: #241308;
+  --sidebar-accent: #3a2110;
+  --sidebar-accent-foreground: #ffd98a;
+  --sidebar-border: #4a2c16;
+  --sidebar-ring: #ffb347;
+}
+
+.dark {
+  --background: #160b06;
+  --foreground: #f2e3c6;
+  --card: #241308;
+  --card-foreground: #f2e3c6;
+  --popover: #2b180c;
+  --popover-foreground: #f2e3c6;
+  --primary: #ffb347;
+  --primary-foreground: #241308;
+  --secondary: #3a2110;
+  --secondary-foreground: #ffd98a;
+  --muted: #2b180c;
+  --muted-foreground: #b89a6a;
+  --accent: #ff6ec7;
+  --accent-foreground: #241308;
+  --destructive: #ff5252;
+  --border: #4a2c16;
+  --input: #4a2c16;
+  --ring: #ffb347;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================================
+   RETRO NOSTALGIA EFFECTS KIT
+   ============================================================ */
+
+.font-pixel {
+  font-family: var(--font-press), monospace;
+}
+.font-vt {
+  font-family: var(--font-vt), monospace;
+}
+
+/* ---- CRT scanlines + vignette + curvature tint (fixed overlay) ---- */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.22) 0px,
+      rgba(0, 0, 0, 0.22) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: multiply;
+}
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.28) 82%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+/* subtle rolling bright bar, like an old CRT refresh */
+.crt-overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 240, 200, 0.035),
+    transparent
+  );
+  animation: crt-roll 7s linear infinite;
+}
+@keyframes crt-roll {
+  0% {
+    top: -15%;
+  }
+  100% {
+    top: 110%;
+  }
+}
+
+/* ---- VHS grain (SVG turbulence) ---- */
+.vhs-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 89;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.9s steps(4) infinite;
+}
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1.5%);
+  }
+  50% {
+    transform: translate(1.5%, -1%);
+  }
+  75% {
+    transform: translate(-1%, -2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ---- whole-screen soft flicker ---- */
+.crt-flicker {
+  animation: crt-flicker 4.2s infinite;
+}
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  3% { opacity: 0.97; }
+  6% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.96; }
+  43% { opacity: 1; }
+  78% { opacity: 1; }
+  79% { opacity: 0.98; }
+  80% { opacity: 1; }
+}
+
+/* ---- chromatic aberration heading ---- */
+.chroma-text {
+  text-shadow:
+    2px 0 rgba(255, 0, 80, 0.55),
+    -2px 0 rgba(0, 255, 214, 0.45);
+}
+.chroma-text-soft {
+  text-shadow:
+    1.5px 0 rgba(255, 0, 80, 0.4),
+    -1.5px 0 rgba(0, 255, 214, 0.35);
+}
+
+/* ---- classic blink ---- */
+.retro-blink {
+  animation: retro-blink 1.1s steps(1) infinite;
+}
+@keyframes retro-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---- marquee ---- */
+.retro-marquee-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: retro-marquee 26s linear infinite;
+}
+@keyframes retro-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- twinkling stars ---- */
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: #ffe9b3;
+  animation: star-twinkle var(--tw-dur, 3s) ease-in-out infinite;
+  animation-delay: var(--tw-delay, 0s);
+}
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* ---- falling sakura petals ---- */
+.petal {
+  position: absolute;
+  top: -4vh;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, #ffd1e8 0%, #ffb7d9 55%, #ff9ec9 100%);
+  border-radius: 80% 0 80% 0;
+  opacity: 0.85;
+  animation: petal-fall var(--p-dur, 12s) linear infinite;
+  animation-delay: var(--p-delay, 0s);
+  left: var(--p-x, 50%);
+}
+@keyframes petal-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(108vh) translateX(9vw) rotate(560deg);
+    opacity: 0.3;
+  }
+}
+
+/* ---- Win98 bevel borders ---- */
+.bevel-out {
+  border: 2px solid;
+  border-color: #ffe6bd #6b4a28 #6b4a28 #ffe6bd;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.55);
+}
+.bevel-in {
+  border: 2px solid;
+  border-color: #6b4a28 #ffe6bd #ffe6bd #6b4a28;
+}
+
+/* ---- TV screen curvature ---- */
+.tv-screen {
+  border-radius: 18px / 22px;
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.85),
+    inset 0 0 18px rgba(0, 0, 0, 0.9),
+    0 0 34px rgba(255, 179, 71, 0.12);
+  overflow: hidden;
+}
+/* glossy scan highlight on TV */
+.tv-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.04) 26%,
+    transparent 46%
+  );
+  pointer-events: none;
+}
+
+/* ---- CRT power off animation ---- */
+.tv-off {
+  animation: tv-off 0.55s cubic-bezier(0.6, 0, 0.9, 0.4) forwards;
+}
+@keyframes tv-off {
+  0% {
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+  55% {
+    transform: scaleY(0.012);
+    filter: brightness(4);
+  }
+  75% {
+    transform: scaleY(0.012) scaleX(0.6);
+    filter: brightness(6);
+  }
+  100% {
+    transform: scaleY(0.008) scaleX(0);
+    filter: brightness(0);
+  }
+}
+.tv-on {
+  animation: tv-on 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+@keyframes tv-on {
+  0% {
+    transform: scaleY(0.008) scaleX(0);
+    filter: brightness(6);
+  }
+  45% {
+    transform: scaleY(0.012) scaleX(1);
+    filter: brightness(4);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1);
+  }
+}
+
+/* ---- channel switch static flash ---- */
+.channel-static {
+  animation: channel-static 0.35s steps(5) forwards;
+}
+@keyframes channel-static {
+  0% {
+    filter: brightness(1.6) contrast(2) saturate(0.2);
+    transform: translateX(-3px) skewX(1.5deg);
+  }
+  30% {
+    filter: brightness(0.6) contrast(3) saturate(0);
+    transform: translateX(4px) skewX(-2deg);
+  }
+  60% {
+    filter: brightness(1.4) contrast(2.4) saturate(0.4);
+    transform: translateX(-2px) skewX(1deg);
+  }
+  100% {
+    filter: none;
+    transform: none;
+  }
+}
+
+/* ---- segmented LED nostalgia meter ---- */
+.led-seg {
+  width: 10px;
+  height: 16px;
+  background: #3a2110;
+  border: 1px solid #241308;
+  border-radius: 2px;
+}
+.led-seg.on {
+  background: #ffb347;
+  box-shadow: 0 0 6px rgba(255, 179, 71, 0.8);
+}
+.led-seg.on.hot {
+  background: #ff5252;
+  box-shadow: 0 0 7px rgba(255, 82, 82, 0.9);
+}
+
+/* ---- hit counter odometer digits ---- */
+.counter-digit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 30px;
+  background: #000;
+  color: #7ce38b;
+  border: 1px solid #4a2c16;
+  border-radius: 3px;
+  font-family: var(--font-vt), monospace;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 6px rgba(124, 227, 139, 0.25);
+  text-shadow: 0 0 5px rgba(124, 227, 139, 0.9);
+}
+
+/* ---- retro striped construction bar (amber/black) ---- */
+.retro-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    #ffb347 0 14px,
+    #241308 14px 28px
+  );
+}
+
+/* ---- blinking cursor ---- */
+.cursor-blink::after {
+  content: "▌";
+  animation: retro-blink 0.9s steps(1) infinite;
+  color: #ffb347;
+}
+
+/* ---- image treatment: faded warm photo ---- */
+.photo-retro {
+  filter: sepia(0.28) saturate(0.82) contrast(0.96) brightness(0.94);
+  transition: filter 0.35s ease, transform 0.35s ease;
+}
+.photo-retro:hover {
+  filter: sepia(0.05) saturate(1.05) contrast(1.02) brightness(1.02);
+}
+
+/* ---- under construction / badge wiggle ---- */
+.wiggle-hover:hover {
+  animation: retro-wiggle 0.4s ease-in-out;
+}
+@keyframes retro-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2.5deg); }
+  75% { transform: rotate(2.5deg); }
+}
+
+/* ---- custom retro scrollbar ---- */
+.retro-scroll::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 14px;
+}
+.retro-scroll::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #241308;
+  border-left: 2px solid #4a2c16;
+}
+.retro-scroll::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: #6b4a28;
+  border: 2px solid;
+  border-color: #ffe6bd #6b4a28 #6b4a28 #ffe6bd;
+}
+.retro-scroll::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: #8a5f36;
+}
+
+/* ---- selection color ---- */
+::selection {
+  background: #ffb347;
+  color: #241308;
+}
+
+/* ---- reduce motion safety ---- */
+@media (prefers-reduced-motion: reduce) {
+  .crt-overlay::after,
+  .vhs-grain,
+  .crt-flicker,
+  .retro-marquee-track,
+  .petal,
+  .star {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Anime {
+  id        Int       @id @default(autoincrement())
+  slug      String    @unique
+  title     String
+  titleJp   String
+  year      Int
+  studio    String
+  genre     String
+  episodes  String
+  synopsis  String
+  tagline   String
+  quote     String
+  imageUrl  String
+  nostalgia Float
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  author    String
+  message   String
+  mood      String   @default("nostalgic")
+  animeSlug String?
+  anime     Anime?   @relation(fields: [animeSlug], references: [slug])
+  createdAt DateTime @default(now())
+}
