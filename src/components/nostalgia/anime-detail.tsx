@@ -8,9 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { CalendarDays, Building2, Tv, Quote } from 'lucide-react'
+import { CalendarDays, Building2, Tv, Quote, Pause, Play } from 'lucide-react'
 import type { AnimeEntry, GuestbookEntry } from './types'
 import { NostalgiaMeter } from './anime-card'
+import { usePlayer } from './player'
 
 interface AnimeDetailDialogProps {
   anime: AnimeEntry | null
@@ -45,8 +46,10 @@ export function AnimeDetailDialog({
   onOpenChange,
   comments,
 }: AnimeDetailDialogProps) {
+  const { current, isPlaying, playTrack } = usePlayer()
   if (!anime) return null
   const related = comments.filter((c) => c.animeSlug === anime.slug).slice(0, 5)
+  const thisPlaying = current?.slug === anime.slug && isPlaying
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -112,6 +115,50 @@ export function AnimeDetailDialog({
               <span className="text-amber-200/50">— the line we all remember</span>
             </span>
           </blockquote>
+
+          {/* theme song block */}
+          {anime.audioUrl && (
+            <div className="bevel-out mt-4 flex items-center gap-3 rounded-md bg-[#1c0f06] p-3">
+              <button
+                type="button"
+                onClick={() => playTrack(anime.slug)}
+                className={`bevel-out flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors ${
+                  thisPlaying
+                    ? 'bg-primary text-[#241308]'
+                    : 'bg-[#6b4a28] text-amber-100 hover:bg-[#8a5f36]'
+                }`}
+                aria-label={`${thisPlaying ? 'Pause' : 'Play'} the theme song ${anime.themeName ?? ''}`}
+              >
+                {thisPlaying ? (
+                  <Pause className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <Play className="h-5 w-5" aria-hidden="true" />
+                )}
+              </button>
+              <div className="min-w-0 flex-1">
+                <p className="font-vt text-xs tracking-widest text-amber-300">
+                  ♪ OPENING THEME
+                </p>
+                <p className="font-vt truncate text-lg text-amber-100">
+                  {anime.themeName ?? 'Theme song'}
+                </p>
+                <p className="font-vt truncate text-sm text-muted-foreground">
+                  {anime.themeArtist ?? '—'}
+                </p>
+              </div>
+              {thisPlaying && (
+                <div className="vu-meter hidden shrink-0 sm:flex" aria-hidden="true">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <span
+                      key={i}
+                      className="vu-bar on"
+                      style={{ animationDuration: `${0.4 + i * 0.11}s` }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="mt-4 flex flex-wrap gap-2">
             {anime.genre.split(' / ').map((g) => (

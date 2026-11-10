@@ -486,6 +486,105 @@ body::-webkit-scrollbar-thumb:hover {
   background: #8a5f36;
 }
 
+/* ============================================================
+   CASSETTE DECK / BOOMBOX PLAYER
+   ============================================================ */
+
+/* ---- scrolling LCD line (like an old CD head unit) ---- */
+.lcd-scroll {
+  display: inline-block;
+  white-space: nowrap;
+  animation: lcd-scroll 11s linear infinite;
+}
+@keyframes lcd-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- spinning cassette reels ---- */
+.cassette-reel {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  border: 3px dashed #b89a6a;
+  animation: reel-spin 2.2s linear infinite;
+  animation-play-state: paused;
+}
+.cassette-reel.on {
+  animation-play-state: running;
+}
+@keyframes reel-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- VU meter bars ---- */
+.vu-meter {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 32px;
+}
+.vu-bar {
+  width: 4px;
+  height: 100%;
+  border-radius: 1px;
+  background: linear-gradient(to top, #7ce38b, #ffb347 62%, #ff5252);
+  transform-origin: bottom;
+  transform: scaleY(0.14);
+  animation: vu-bounce 0.7s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.vu-bar.on {
+  animation-play-state: running;
+}
+@keyframes vu-bounce {
+  from {
+    transform: scaleY(0.12);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- retro volume slider ---- */
+.retro-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #241308;
+  border: 2px solid;
+  border-color: #6b4a28 #ffe6bd #ffe6bd #6b4a28;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.retro-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 20px;
+  background: #ffb347;
+  border: 2px solid;
+  border-color: #ffe6bd #6b4a28 #6b4a28 #ffe6bd;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.retro-range::-moz-range-thumb {
+  width: 12px;
+  height: 18px;
+  background: #ffb347;
+  border: 1px solid #6b4a28;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
 /* ---- selection color ---- */
 ::selection {
   background: #ffb347;
@@ -499,7 +598,10 @@ body::-webkit-scrollbar-thumb:hover {
   .crt-flicker,
   .retro-marquee-track,
   .petal,
-  .star {
+  .star,
+  .lcd-scroll,
+  .cassette-reel,
+  .vu-bar {
     animation: none !important;
   }
 }

@@ -8,20 +8,23 @@ datasource db {
 }
 
 model Anime {
-  id        Int       @id @default(autoincrement())
-  slug      String    @unique
-  title     String
-  titleJp   String
-  year      Int
-  studio    String
-  genre     String
-  episodes  String
-  synopsis  String
-  tagline   String
-  quote     String
-  imageUrl  String
-  nostalgia Float
-  comments  Comment[]
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  title       String
+  titleJp     String
+  year        Int
+  studio      String
+  genre       String
+  episodes    String
+  synopsis    String
+  tagline     String
+  quote       String
+  imageUrl    String
+  nostalgia   Float
+  themeName   String?
+  themeArtist String?
+  audioUrl    String?
+  comments    Comment[]
 }
 
 model Comment {

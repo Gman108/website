@@ -12,6 +12,9 @@ export interface AnimeEntry {
   quote: string
   imageUrl: string
   nostalgia: number
+  themeName?: string | null
+  themeArtist?: string | null
+  audioUrl?: string | null
   _count?: { comments: number }
 }
 

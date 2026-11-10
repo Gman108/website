@@ -17,6 +17,9 @@ const animeData = [
     quote: 'Big Dango Family~ 🍡',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f77fa2b647fd.jpg',
     nostalgia: 9.8,
+    themeName: 'Dango Daikazoku (A Big Dango Family)',
+    themeArtist: 'Chata',
+    audioUrl: '/audio/clannad.mp3',
   },
   {
     slug: 'kanon',
@@ -32,6 +35,9 @@ const animeData = [
     quote: 'Uguu~',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e65938f235d8.jpg',
     nostalgia: 9.4,
+    themeName: 'Last Regrets',
+    themeArtist: 'Ayana',
+    audioUrl: '/audio/kanon.mp3',
   },
   {
     slug: 'air',
@@ -47,6 +53,9 @@ const animeData = [
     quote: 'Gao~',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f30523b9a2a9.jpg',
     nostalgia: 9.1,
+    themeName: 'Tori no Uta',
+    themeArtist: 'Lia',
+    audioUrl: '/audio/air.mp3',
   },
   {
     slug: 'evangelion',
@@ -62,6 +71,9 @@ const animeData = [
     quote: 'Get in the robot, Shinji.',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/078e147782f7.jpg',
     nostalgia: 9.9,
+    themeName: 'Zankoku na Tenshi no These (A Cruel Angel\'s Thesis)',
+    themeArtist: 'Yoko Takahashi',
+    audioUrl: '/audio/evangelion.mp3',
   },
   {
     slug: 'sailor-moon',
@@ -77,6 +89,9 @@ const animeData = [
     quote: 'In the name of the Moon, I\'ll punish you!',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/128ba37e7789.jpg',
     nostalgia: 9.7,
+    themeName: 'Moonlight Densetsu',
+    themeArtist: 'DALI',
+    audioUrl: '/audio/sailor-moon.mp3',
   },
   {
     slug: 'dragon-ball-z',
@@ -92,6 +107,9 @@ const animeData = [
     quote: 'It\'s over 9000!',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/be0c2195e314.jpg',
     nostalgia: 9.9,
+    themeName: 'Cha-La Head-Cha-La',
+    themeArtist: 'Hironobu Kageyama',
+    audioUrl: '/audio/dragon-ball-z.mp3',
   },
   {
     slug: 'pokemon',
@@ -107,6 +125,9 @@ const animeData = [
     quote: 'Pika pika!',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/bfee46189ed7.jpg',
     nostalgia: 9.8,
+    themeName: 'Pokémon Theme (Gotta Catch \'Em All)',
+    themeArtist: 'Jason Paige',
+    audioUrl: '/audio/pokemon.mp3',
   },
   {
     slug: 'cardcaptor-sakura',
@@ -122,6 +143,9 @@ const animeData = [
     quote: 'Hoeee~!',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f48cb506526a.jpg',
     nostalgia: 9.5,
+    themeName: 'Catch You Catch Me',
+    themeArtist: 'Gumi',
+    audioUrl: '/audio/cardcaptor-sakura.mp3',
   },
   {
     slug: 'spirited-away',
@@ -137,6 +161,9 @@ const animeData = [
     quote: 'Once you\'ve met someone, you never really forget them.',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f266097e2226.jpg',
     nostalgia: 9.9,
+    themeName: 'Always With Me (Itsumo Nando Demo)',
+    themeArtist: 'Youmi Kimura',
+    audioUrl: '/audio/spirited-away.mp3',
   },
   {
     slug: 'cowboy-bebop',
@@ -152,6 +179,9 @@ const animeData = [
     quote: 'Bang.',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/582bd160e016.jpg',
     nostalgia: 9.6,
+    themeName: 'Tank! [TV Edit]',
+    themeArtist: 'The Seatbelts',
+    audioUrl: '/audio/cowboy-bebop.mp3',
   },
   {
     slug: 'naruto',
@@ -167,6 +197,9 @@ const animeData = [
     quote: 'Believe it!',
     imageUrl: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/93bca740e645.jpg',
     nostalgia: 9.5,
+    themeName: 'Rocks (Opening 1)',
+    themeArtist: 'Hound Dog',
+    audioUrl: '/audio/naruto.mp3',
   },
 ]
 

@@ -8,6 +8,7 @@ import { TvHero } from './tv-hero'
 import { AnimeCard } from './anime-card'
 import { AnimeDetailDialog } from './anime-detail'
 import { Guestbook } from './guestbook'
+import { PlayerProvider, BoomboxBar } from './player'
 import type { AnimeEntry, GuestbookEntry } from './types'
 
 const DECADES = [
@@ -51,7 +52,8 @@ export function NostalgiaApp({ initialAnime, initialComments }: NostalgiaAppProp
   }
 
   return (
-    <div className="crt-flicker relative flex min-h-screen flex-col">
+    <PlayerProvider anime={initialAnime}>
+      <div className="crt-flicker relative flex min-h-screen flex-col pb-24">
       <CrtEffects />
       <SakuraPetals count={14} />
 
@@ -92,7 +94,8 @@ export function NostalgiaApp({ initialAnime, initialComments }: NostalgiaAppProp
           <p className="font-vt mx-auto mt-4 max-w-2xl text-base leading-snug text-amber-100/70 sm:text-lg">
             The classics that raised us — Clannad, Kanon, AIR, Evangelion, Sailor
             Moon, DBZ &amp; more — preserved on well-loved VHS tapes and displayed
-            on a warm humming CRT. Sign the guestbook before you leave!
+            on a warm humming CRT. Every tape plays its opening theme on the
+            cassette deck, and the guestbook is always open!
           </p>
           <div className="retro-stripes mx-auto mt-6 h-2 w-56 rounded-sm opacity-80" aria-hidden="true" />
         </div>
@@ -100,14 +103,14 @@ export function NostalgiaApp({ initialAnime, initialComments }: NostalgiaAppProp
 
       <RetroMarquee
         items={[
+          '★ NEW: CASSETTE DECK INSTALLED — EVERY TAPE NOW PLAYS ITS OPENING THEME ♪',
           '★ NOW SHOWING: CLANNAD — DANGO DAIKAZOKU FOREVER',
-          'AIR SUMMER REWATCH 8PM JST',
           '“IT’S OVER 9000!” — 30 YEARS OF DBZ',
-          'SEE YOU SPACE COWBOY…',
+          'SEE YOU SPACE COWBOY… ♪ TANK! ON DECK',
           'HOEEE~ NEW SAKURA TAPES IN',
-          'GOTTA CATCH ’EM ALL',
+          'GOTTA CATCH ’EM ALL — INDIGO LEAGUE THEME PLAYING',
           'UGUU~ KANON SNOW UPDATE',
-          'IN THE NAME OF THE MOON ★',
+          'IN THE NAME OF THE MOON ★ MOONLIGHT DENSETSU ON AIR',
         ]}
       />
 
@@ -224,6 +227,8 @@ export function NostalgiaApp({ initialAnime, initialComments }: NostalgiaAppProp
         onOpenChange={setDialogOpen}
         comments={initialComments}
       />
-    </div>
+      </div>
+      <BoomboxBar />
+    </PlayerProvider>
   )
 }
